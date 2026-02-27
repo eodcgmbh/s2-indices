@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "s2_indices"
-version = "1.0.2"
+version = "1.0.0"
 description = "Create Docker image with dependencies and indices definitions. "
 authors = ["ValentinaHutter <valentina.hutter@eodc.eu>"]
 readme = "README.md"
