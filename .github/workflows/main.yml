@@ -20,7 +20,7 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: |
-          ghcr.io/eodcgmbhh/s2_indices
+          ghcr.io/eodcgmbh/s2_indices
         tags: |
           type=semver,pattern={{raw}}
     - name: Checkout repository
