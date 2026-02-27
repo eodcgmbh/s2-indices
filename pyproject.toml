@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "dask_image"
+version = "3.2.1"
+description = "Dask image with all requirements. Computed various indices. "
+authors = ["ValentinaHutter <valentina.hutter@eodc.eu>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11.11"
+tornado =  ">=6.2.0"
+cloudpickle = ">=3.0.0"
+msgpack = "1.0.4"
+toolz = "0.12.0"
+pystac = "<=1.12.1"
+pystac-client = "<=0.8.5"
+numpy = "<2"
+netcdf4 = "1.7.2"
+h5netcdf = "1.4.0"
+scipy = "<=1.15.1"
+shapely = "<=2.0.7"
+rasterio = {extras = ["core", "s3"], version = "^1.4.3"}
+odc-geo = "<=0.4.9.post0"
+odc-stac = ">=0.4.0"
+pandas = "<=2.2.3"
+pyproj = "<=3.7.0"
+requests = "<=2.32.3"
+zarr = "2.18.0"
+xarray = "*"
+s3fs = "*"
+dask = {extras = ["array", "core", "distributed"], version = ">=2025.4.0"}
+dask-gateway = ">=2025.4.0"
+botocore = "1.35.88"
+aiobotocore = "*"
+numcodecs = "0.15.1"
+bokeh = ">=3,<3.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
