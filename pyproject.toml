@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dask_image"
-version = "1.0.0"
+version = "1.0.1"
 description = "Dask image with all requirements. Computed various indices. "
 authors = ["ValentinaHutter <valentina.hutter@eodc.eu>"]
 readme = "README.md"
