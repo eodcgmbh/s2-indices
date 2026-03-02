@@ -1,7 +1,4 @@
 name: Build and Push Docker Image
-permissions:
-  contents: read
-  packages: write
 
 on:
   push:
@@ -37,7 +34,7 @@ jobs:
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
-        password: ${{ secrets.GHCR_TOKEN }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build and push
       uses: docker/build-push-action@v6
