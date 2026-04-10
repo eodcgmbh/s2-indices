@@ -153,3 +153,54 @@ def load_data_none(item):
     cube = load_data(item, bands=bands_none, resolution=10)
 
     return cube
+
+
+def reshape(path, append_time):
+    import json
+    with open(path, mode='rb') as f:
+        ZARRAY = json.loads(f.read())
+        if "shape" in ZARRAY:
+            shape = ZARRAY["shape"][0]
+            print("i =", shape)
+            new_shape = shape+append_time # int(np.ceil(shape/chunk)*chunk)
+            if len(ZARRAY["shape"]) == 1:
+                ZARRAY["shape"] = [new_shape]
+
+            if len(ZARRAY["shape"]) == 3:
+                y = ZARRAY["shape"][1]
+                x = ZARRAY["shape"][2]
+                ZARRAY["shape"] = [new_shape, y, x]
+
+        if "chunks" in ZARRAY: 
+            if len(ZARRAY["chunks"]) == 3:
+                if not ZARRAY["chunks"][0] == 20:
+                    raise Exception(f"ISSUE WITH: {ZARRAY}")
+
+    json_object = json.dumps(ZARRAY, indent=4)
+    with open(path, "w") as outfile:
+        outfile.write(json_object)
+    print("Written to ", path)
+    return new_shape
+
+def update_metadata(target_path, new_shape):
+    import json
+    with open(target_path+'/.zmetadata', mode='rb') as f:
+        ZMETADATA = json.loads(f.read())
+        new_metadata = {}
+        for k, v in ZMETADATA["metadata"].items():
+            if ".zarray" in k and k not in ["spatial_ref/.zarray", "x/.zarray", "y/.zarray"]:
+                if "shape" in v:
+                    if len(v["shape"]) == 1:
+                        v["shape"] = [new_shape]
+
+                    if len(v["shape"]) == 3:
+                        y = v["shape"][1]
+                        x = v["shape"][2]
+                        v["shape"] = [new_shape, y, x]
+
+            new_metadata[k] = v
+        ZMETADATA["metadata"] = new_metadata
+        json_object = json.dumps(ZMETADATA, indent=4)
+        with open(target_path+'/.zmetadata', "w") as outfile:
+            outfile.write(json_object)
+    return new_shape
